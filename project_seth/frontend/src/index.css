@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600&display=swap');
+
+
+/* ── RGB cycle animation ─────────────────────────────── */
+@keyframes rgb-cycle {
+  0% {
+    --rgb-h: 240;
+  }
+
+  /* violet */
+  16% {
+    --rgb-h: 280;
+  }
+
+  /* purple */
+  33% {
+    --rgb-h: 200;
+  }
+
+  /* cyan */
+  50% {
+    --rgb-h: 160;
+  }
+
+  /* teal */
+  66% {
+    --rgb-h: 320;
+  }
+
+  /* magenta */
+  83% {
+    --rgb-h: 260;
+  }
+
+  /* indigo */
+  100% {
+    --rgb-h: 240;
+  }
+}
+
+@property --rgb-h {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 240;
+}
+
+:root {
+  animation: rgb-cycle 8s linear infinite;
+
+  /* ── Background ──────────────────────────────────── */
+  --bg-primary: #05060f;
+  --bg-secondary: #0c0e1a;
+  --bg-tertiary: #121528;
+  --bg-glass: rgba(12, 14, 26, 0.7);
+
+  /* ── Text ────────────────────────────────────────── */
+  --text-primary: #f0f2ff;
+  --text-secondary: #a0a8c8;
+  --text-muted: #5a6180;
+
+  /* ── Dynamic RGB accent (hsl cycles) ─────────────── */
+  --accent-color: hsl(var(--rgb-h), 90%, 65%);
+  --accent-color-dim: hsl(var(--rgb-h), 80%, 50%);
+  --accent-glow: hsl(var(--rgb-h), 90%, 65%);
+  --accent-color-hover: hsl(var(--rgb-h), 90%, 75%);
+
+  /* Fixed RGB stops for gradients */
+  --rgb-violet: #b06ef3;
+  --rgb-cyan: #22d3ee;
+  --rgb-magenta: #f472b6;
+  --rgb-indigo: #818cf8;
+
+  /* ── Status ──────────────────────────────────────── */
+  --success-color: #34d399;
+  --error-color: #f87171;
+  --error-bg: rgba(248, 113, 113, 0.08);
+  --error-border: rgba(248, 113, 113, 0.25);
+
+  /* ── Borders ─────────────────────────────────────── */
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-focus: rgba(255, 255, 255, 0.12);
+
+  /* ── Shadows / glows ─────────────────────────────── */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.7);
+  --glow-sm: 0 0 12px rgba(130, 100, 255, 0.35);
+  --glow-md: 0 0 28px rgba(130, 100, 255, 0.45);
+  --glow-lg: 0 0 50px rgba(130, 100, 255, 0.3);
+
+  /* ── Typography ──────────────────────────────────── */
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-heading: 'Orbitron', system-ui, sans-serif;
+
+  /* ── Radii ───────────────────────────────────────── */
+  --border-radius-sm: 8px;
+  --border-radius-md: 14px;
+  --border-radius-lg: 20px;
+  --border-radius-xl: 28px;
+
+  /* ── Transitions ─────────────────────────────────── */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--rgb-violet), var(--rgb-cyan));
+  border-radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(120, 60, 255, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(34, 211, 238, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(244, 114, 182, 0.06) 0%, transparent 70%),
+    var(--bg-primary);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

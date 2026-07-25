@@ -1,0 +1,344 @@
+/* ════════════════════════════════════════════════════════
+   History Page
+════════════════════════════════════════════════════════ */
+.history-container {
+  padding: 0 4px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  animation: historyFadeIn 0.5s ease-out;
+}
+
+@keyframes historyFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+/* Gradient line under header */
+.history-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rgb-violet), var(--rgb-cyan), transparent);
+  background-size: 300% 100%;
+  animation: rgb-gradient 5s ease infinite;
+}
+
+.history-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-count {
+  background: linear-gradient(135deg, var(--rgb-violet), var(--rgb-cyan));
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  color: #fff;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 14px rgba(176, 110, 243, 0.35);
+  min-width: 28px;
+  text-align: center;
+}
+
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(176, 110, 243, 0.25);
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.refresh-btn:hover {
+  background: linear-gradient(135deg, rgba(176, 110, 243, 0.12), rgba(34, 211, 238, 0.08));
+  border-color: rgba(176, 110, 243, 0.5);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(176, 110, 243, 0.2);
+}
+
+.refresh-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ── Card Grid ──────────────────────────────────────── */
+.history-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+/* ── History Card ───────────────────────────────────── */
+.history-item {
+  position: relative;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--border-radius-lg);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated top accent line */
+.history-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rgb-violet), var(--rgb-cyan), var(--rgb-magenta));
+  background-size: 200% 100%;
+  animation: rgb-gradient 4s ease infinite;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.history-item:hover::before {
+  opacity: 1;
+}
+
+.history-item:hover {
+  border-color: rgba(176, 110, 243, 0.3);
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(176, 110, 243, 0.1);
+}
+
+/* ── Card Header (Title + Delete) ───────────────────── */
+.history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.history-item-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;            /* critical for text-overflow to work in flex */
+  flex: 1;
+}
+
+.file-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(176, 110, 243, 0.4));
+}
+
+.history-item-title h3 {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  /* Proper truncation — prevents the mid-word line break */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ── Delete Button ──────────────────────────────────── */
+.delete-btn {
+  background: rgba(248, 113, 113, 0.06);
+  border: 1px solid rgba(248, 113, 113, 0.15);
+  color: rgba(248, 113, 113, 0.6);
+  cursor: pointer;
+  font-size: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.4);
+  color: #f87171;
+  box-shadow: 0 0 12px rgba(248, 113, 113, 0.2);
+  transform: scale(1.08);
+}
+
+/* ── Date ───────────────────────────────────────────── */
+.history-item-date {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0 0 14px 0;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.history-item-date::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rgb-violet);
+  opacity: 0.6;
+  box-shadow: 0 0 8px rgba(176, 110, 243, 0.5);
+}
+
+/* ── Preview Text ───────────────────────────────────── */
+.history-item-preview {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0 0 18px 0;
+  line-height: 1.65;
+  flex: 1;             /* fills remaining space so buttons align */
+  /* Clamp to 3 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+/* ── View Button ────────────────────────────────────── */
+.view-btn {
+  width: 100%;
+  padding: 11px 18px;
+  background: linear-gradient(135deg, rgba(176, 110, 243, 0.18), rgba(34, 211, 238, 0.12));
+  border: 1px solid rgba(176, 110, 243, 0.3);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;          /* push to bottom of card */
+}
+
+.view-btn:hover {
+  background: linear-gradient(135deg, rgba(176, 110, 243, 0.3), rgba(34, 211, 238, 0.2));
+  border-color: rgba(176, 110, 243, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(176, 110, 243, 0.25);
+}
+
+.view-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── Empty State ────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 28px;
+  color: var(--text-muted);
+  grid-column: 1 / -1;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.empty-state::before {
+  content: '📂';
+  font-size: 48px;
+  opacity: 0.4;
+  filter: grayscale(0.5);
+}
+
+.empty-state p {
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .history-list {
+    grid-template-columns: 1fr;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .refresh-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .history-item {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-container {
+    padding: 0;
+  }
+
+  .history-item-title h3 {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,9 @@
+flask
+flask-cors
+transformers
+torch
+accelerate
+sentencepiece
+pdfplumber
+deep-translator
+gTTS
